@@ -1,0 +1,37 @@
+<div class="container-fluid">
+
+    <div class="login-container row justify-content-center">
+
+        <div class="col-md-3">
+            <img src="assets/img/yoyo-logo.jpg" width="300" alt="">
+        </div>
+        <div id="login" class="col-md-3">
+
+            <form  [formGroup]="loginForm" (ngSubmit)="tryLogin()">
+
+                <fieldset class="clearfix">
+
+                    <p><span class="fa fa-user"></span><input type="text" [formControl]="fcUsername" Placeholder="Username" required></p>
+                    <p><span class="fa fa-lock"></span><input type="password" [formControl]="fcPassword"  Placeholder="Password" required></p>
+
+                    <div>
+                        <button class="btn btn-default" type="submit"><span *ngIf="!isLoading else loader" >Sign In</span></button>
+                        <ng-template #loader>
+                            <i class="fas fa-circle-notch fa-spin"></i>
+                        </ng-template>
+                        
+                        <span style="width:48%; text-align:right;margin-top: 9px;  display: inline-block;"><a class="small-text"
+                                href="#">Forgot
+                                password?</a></span>
+                    </div>
+                </fieldset>
+                
+                <div *ngIf="hasError" class="text-danger shadow">
+                    <span>{{errorText}}</span>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+
+    </div>
+</div>

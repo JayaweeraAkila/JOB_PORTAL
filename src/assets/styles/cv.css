@@ -1,0 +1,16 @@
+.cv .created-date {
+    text-align: right;
+}
+.cv .borders div {
+    border: 1px solid;
+    padding: 5px;
+}
+.cv .rounded {
+    border: 1px solid;
+    border-radius: 40px;
+    padding: 2px;
+}
+
+.cv table tr td {
+    padding-left: 10px;
+}

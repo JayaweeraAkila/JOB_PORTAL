@@ -1,0 +1,257 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">View Candidates Profile</h1>
+    <div *ngIf="isLoading"><img src="assets/img/loader-bar.svg" alt=""></div>
+    <div *ngIf="!isLoading"><button
+            styleSheetFile="assets/styles/sb-admin-2.min.css,https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+            printSectionId="print-area" mat-raised-button ngxPrint>Print</button></div>
+</div>
+
+<div *ngIf="!isLoading" class="row mb-3">
+
+    <div class="card col-md-8 mt-2 p-4" id="print-area">
+
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-12 mt-2">
+                        <span class="h2">{{applicant.fullNameEN}} </span>
+                        <br>
+                        <span>{{applicant.email}}</span><br>
+                        <span>{{applicant.contactNo}}</span><br>
+                        <span>{{applicant.addressEN}}</span><br>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 py-4">
+                        <br>
+                        <p class="h4">Personal Details</p>
+                        <hr>
+                    </div>
+                    <div class="col-md-4">
+                        <p>Full Name in Japanese</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>{{applicant.fullNameEN}}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>Date of Birth</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>{{applicant.dob | date:'dd/MM/yyyy'}}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>Current Country</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>{{applicant.currCountry}}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>Nationality</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>{{applicant.nationality}}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>Passport No</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>{{applicant.passportNo}}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>Alien No</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>{{applicant.alienNo}}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>Blood Group</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>{{applicant.bloodGroup}}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>Gender</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>{{applicant.gender}}</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 py-4">
+                        <br>
+                        <p class="h4">Education</p>
+                        <hr>
+
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>{{ 'profile.institute' | translate}}</th>
+                                    <th>{{ 'profile.course' | translate}}</th>
+                                    <th>{{ 'profile.areaOfStudy' | translate}}</th>
+                                    <th>{{ 'profile.startDate' | translate}}</th>
+                                    <th>{{ 'profile.graduationDate' | translate}}</th>
+                                    <th>{{ 'profile.grade' | translate}}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngIf="isLoading">
+                                    <td colspan="7" class="text-center"><img src="assets/img/loader-bar.svg" alt="">
+                                    </td>
+                                </tr>
+                                <tr class="pointer" *ngFor="let edu of applicant.educations">
+                                    <td>{{edu.institute}}</td>
+                                    <td>{{edu.course}}</td>
+                                    <td>{{edu.areaOfStudy}}</td>
+                                    <td>{{edu.startDate}}</td>
+                                    <td>{{edu.graduationDate}}</td>
+                                    <td>{{edu.grade}}</td>
+                                    <td><button>edit</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 py-4">
+                        <br>
+                        <p class="h4">Experience</p>
+                        <hr>
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>{{ 'profile.company' | translate}}</th>
+                                    <th>{{ 'profile.designation' | translate}}</th>
+                                    <th>{{ 'profile.startDate' | translate}}</th>
+                                    <th>{{ 'profile.endDate' | translate}}</th>
+                                    <th>{{ 'profile.description' | translate}}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngIf="isLoading">
+                                    <td colspan="7" class="text-center"><img src="assets/img/loader-bar.svg" alt="">
+                                    </td>
+                                </tr>
+                                <tr class="pointer" *ngFor="let exp of applicant.experiences">
+                                    <td>{{exp.companyName}}</td>
+                                    <td>{{exp.designation}}</td>
+                                    <td>{{exp.startDate}}</td>
+                                    <td>
+                                        <span *ngIf="exp.current == true else todate">Present</span>
+                                        <ng-template #todate>{{exp.endDate | date:'dd/MM/yyyy' }}</ng-template>
+                                    <td>{{exp.description}}</td>
+                                    <td><button>edit</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 py-4">
+                        <br>
+                        <p class="h4">Skills</p>
+                        <hr>
+                    </div>
+                    <div class="col-md-4">
+                        <p>JLPT / NAT</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>{{applicant.skills.japanese}}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>Work Authorization</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p><span *ngIf="applicant.skills.hasWorkAuthorization else noworkauth">Yes</span></p>
+                    </div>
+                    <ng-template #noworkauth>No</ng-template>
+
+                    <div class="col-md-4">
+                        <p>Skill Tests (Passed)</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>
+                            <span *ngFor="let test of applicant.skills.passedSkillTest">
+                                {{test.name}}
+                            </span>
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>Other Skills</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>{{applicant.skills.otherSkills}}</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+    <div class="col-md-4 mt-2">
+        <div class="card">
+            <div class="card-header">
+                Assignments
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <mat-label class="mb-1">Assignee</mat-label>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-select placeholder="Select Assignee" [(ngModel)]="assignee">
+                            <mat-option *ngFor="let user of users" [value]="user.id">{{user.firstName}} {{user.lastName}}</mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <mat-label class="mb-1">Status</mat-label>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-select placeholder="Select Assignee" [(ngModel)]="assignmentStatus">
+                            <mat-option value="NOT_STARTED">NOT STARTED</mat-option>
+                            <mat-option value="IN_PROGRESS">IN PROGRESS</mat-option>
+                            <mat-option value="ON_HOLD">ON HOLD</mat-option>
+                            <mat-option value="ON_CANDIDATE_VERIFICATION">ON CANDIDATE VERIFICATION</mat-option>
+                            <mat-option value="COMPLETED">COMPLETED</mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <button class="pull-right" mat-raised-button (click)="onClickChangeAssignment()">Save</button>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-header">Assignmnet Activities</div>
+            <div class="card-body">
+                <div class="card p-2 mb-2" *ngFor="let item of assignment?.logs">
+                    <p>{{item.createdBy.firstName}} {{item.createdBy.lastName}}  
+                        <span *ngIf="item.assignmentLogType == 'CHANGE_ASSIGNEE'; else changedstatus">Changed assingeee to </span>
+                         {{item.log}} </p>
+                         <ng-template #changedstatus>Changed status to </ng-template>
+                         
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

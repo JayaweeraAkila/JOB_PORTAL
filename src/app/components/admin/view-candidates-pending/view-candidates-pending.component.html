@@ -1,0 +1,43 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">View Candidates</h1>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-1">
+                <div class="col-md-4">
+                    <mat-form-field class="w-100">
+                        <mat-label>Search</mat-label>
+                        <input matInput [(ngModel)]="searchText" class="w-100" placeholder="Search" />
+                      </mat-form-field>
+                    
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngIf="isLoading">
+                                <td colspan="3" class="text-center"><img src="assets/img/loader-bar.svg" alt=""></td>
+                            </tr>
+                            <tr class="pointer" *ngFor="let applicant of applicants |  textSearchFilterMultiple : ['fullNameEN','email'] : searchText"
+                                >
+                                <td>{{applicant.fullNameEN}}</td>
+                                <td>{{applicant.email}}</td>
+                                <td><button mat-raised-button>Send Reminder</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

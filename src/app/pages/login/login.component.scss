@@ -1,0 +1,63 @@
+.login-container {
+    padding-top: 10%;
+
+    background: #fff; /* Old browsers */
+
+    height:calc(100vh);
+
+    #login {
+        border-left: 1px solid #B01117;
+        display: inline-table;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    form {
+        fieldset {
+            p{
+                height: 2em;
+                border: 1px solid #B01117;
+                display: table;
+                width: 100%;
+                span {
+                    padding: 15px;
+                    background-color: #B01117;
+                    color: #f1f1f1 ;
+                }
+                input {
+                    border: 0;
+                    padding: 10px;
+                    width: 80%;
+
+                    &:focus{
+                        outline: none;
+                    }
+                }
+            }
+
+            div {
+                button {
+                    float: left;
+                    padding-left: 20px;
+                    padding-right: 20px;
+                    background-color: #B01117;
+                    color: #fff;
+
+                    &:focus  {
+                        background-color: #fff;
+                        color: #000;
+                    }
+                    &:hover  {
+                        background-color: #f1f1f1;
+                        color: #000;
+                    }
+                }
+                span {
+                    float: right;
+                    text-align: right;
+                }
+            }
+        }
+    }
+
+}

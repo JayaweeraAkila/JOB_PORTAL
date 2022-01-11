@@ -1,0 +1,164 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">View Candidates Profile</h1>
+    <div *ngIf="isLoading"><img src="assets/img/loader-bar.svg" alt=""></div>
+    <div *ngIf="!isLoading"><button
+            styleSheetFile="assets/styles/cv.css,assets/styles/sb-admin-2.min.css,https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+            printSectionId="print-area" mat-raised-button ngxPrint>Print</button></div>
+</div>
+
+<div *ngIf="!isLoading" class="row d-flex justify-content-center align-items-center cv">
+
+
+
+    <div class="card col-md-8 mt-2 p-4" id="print-area">
+        
+        <table style="width:100%; text-align: center;" border="1">
+            <tbody>
+                <tr>
+                    <td colspan="4" style="text-align: left; border: 0; padding: 5px 0 0 10px;"><h3> {{ 'cv.title' | translate}}</h3></td>
+
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div class="created-date"> {{ today?.year  }} {{ 'cv.year' | translate}} {{ today?.month  }}
+                            {{ 'cv.month' | translate}} {{ today?.day  }} {{ 'cv.day' | translate}}
+                            {{ 'cv.createdDate' | translate}}</div>
+                    </td>
+                    <td rowspan="4">
+                        <img width="150px" [src]="profilePicture" alt="">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><span>{{ 'cv.nameEnglish' | translate}}</span></td>
+                    <td style="text-align: left; padding-left: 10px;">{{ applicant.fullNameEN}}</td>
+                    <td>{{ 'cv.gender' | translate}}</td>
+                </tr>
+
+                <tr>
+                    <td><span>{{ 'cv.nameJapanese' | translate}}</span></td>
+                    <td style="text-align: left; padding-left: 10px;">{{ applicant.fullNameJP}}</td>
+                    <td>
+                        <span [ngClass]="{'rounded': applicant.gender == 'male'}">
+                            {{ 'cv.male' | translate}}</span> . <span
+                            [ngClass]="{'rounded': applicant.gender == 'female'}">
+                            {{ 'cv.female' | translate}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span>{{ 'cv.nameJapanese' | translate}}</span></td>
+                    <td colspan="2" style="text-align: left; padding-left: 10px;"> {{ getFormattedBirthday() }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'cv.addressEngilsh' | translate}}</td>
+                    <td colspan="2" style="text-align: left; padding-left: 10px;"> {{ applicant.addressEN}}</td>
+                    <td rowspan="2" style="text-align: left; padding-left: 10px;"><span>{{ 'cv.phone' | translate}}</span><br><span>( )</span></td>
+                </tr> 
+                <tr>
+                    <td rowspan="2">{{ 'cv.addressJapanese' | translate}}</td>
+                    <td colspan="2" style="border-bottom: none;"></td>
+                    
+                </tr>
+                <tr> 
+                    <td colspan="2" style="text-align: left; padding-left: 10px;border-top: none;"> {{ applicant.addressJP}}</td>
+                    <td style="text-align: left; padding-left: 10px;"><span>{{ 'cv.phoneMobile' | translate}}</span><br><span>{{ getFormatedContact() }}</span></td>
+                </tr>
+                <tr>
+                    <td><span>{{ 'cv.email' | translate}}</span></td>
+                    <td colspan="3" style="text-align: left; padding-left: 10px;">{{ applicant.email}}</td>
+                </tr>
+            </tbody> 
+
+
+        </table>
+        <table style="width:100%; text-align: left; padding-left: 10px; margin-top: 15px;" border="1">
+            <tbody>
+                <tr style="width: 10%; text-align: center;">
+                    <td rowspan="100" style="width: 10%;">
+                        <span style="text-orientation: upright; writing-mode: vertical-lr; padding:5px">{{ 'cv.educationAndWork' | translate}}</span>
+                    </td>
+                </tr>
+
+                <ng-container *ngFor="let item of applicant.educations">
+                    <tr >
+                        <td style="width: 20%; padding-left: 10px;"> {{ getFormattedDate(item.startDate) }}</td>
+                        <td style="padding-left: 10px;">{{ item.institute }}</td>
+                    </tr>
+                    <tr >
+                        <td  style="width: 20%; padding-left: 10px;">{{ getFormattedDate(item.graduationDate) }}</td>
+                        <td style="padding-left: 10px;">{{ item.institute }}</td>
+                    </tr>
+                </ng-container> 
+
+                <tr>
+                    <td colspan="2">
+                        <span style="padding-left: 10px;">{{ 'cv.workSection' | translate}}</span>
+                    </td>
+                </tr>
+                <ng-container *ngFor="let item of applicant.experiences">
+                    <tr >
+                        <td style="width: 20%; padding-left: 10px;"> {{ getFormattedDate(item.startDate) }}</td>
+                        <td style="padding-left: 10px;">{{ item.companyName }}</td>
+                    </tr>
+                    <tr >
+                        <td  style="width: 20%; padding-left: 10px;">{{ getFormattedDate(item.endDate) }}</td>
+                        <td style="padding-left: 10px;">{{ item.companyName }}</td>
+                    </tr>
+                </ng-container> 
+            </tbody>
+        </table>
+
+        <table style="width:100%; text-align: left; margin-top: 15px;" border="1">
+            <tbody>
+                <tr style="width: 10%; text-align: center;">
+                    <td rowspan="6" style="width: 10%;">
+                        <span style="text-orientation: upright; writing-mode: vertical-lr; padding:5px">{{ 'cv.hobiesAndSpecialSkills' | translate}}</span>
+                    </td>
+                    <td style="text-align: center;" ><span>{{ 'cv.hobiesAndSpecialSubjectsAndSorts' | translate}}</span></td>
+                    <td style="text-align: center;" ><span>{{ 'cv.specialSkills' | translate}}</span></td>
+                </tr>
+                <tr>
+                    <td> <span style="padding-left: 10px;"> {{ applicant.skills.otherSkills }}</span></td>
+                    <td>
+                        <span style="padding-left: 10px;" *ngFor="let item of applicant.skills.passedSkillTest"> {{item.name}} </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span>&nbsp;</span></td>
+                    <td><span>&nbsp;</span></td>
+                </tr>
+                <tr>
+                    <td><span style="padding-left: 10px;">{{ 'cv.heathCondition' | translate}}</span></td>
+                    <td><span style="padding-left: 10px;">{{ 'cv.other' | translate}}</span></td>
+                </tr>
+                <tr>
+                    <td><span style="padding-left: 10px;">{{ 'cv.good' | translate}}</span></td>
+                    <td><span>&nbsp;</span></td>
+                </tr>
+                <tr>
+                    <td><span>&nbsp;</span></td>
+                    <td><span>&nbsp;</span></td>
+                </tr>
+                <tr style="width: 10%; text-align: center;">
+                    <td style="width: 10%;">
+                        <span style="text-orientation: upright; writing-mode: vertical-lr; padding:5px">{{ 'cv.motive' | translate}}</span>
+                    </td>
+                    <td style="text-align: center;" colspan="2"><span> &nbsp;</span></td> 
+                </tr>
+                <tr style="width: 10%; text-align: center;">
+                    <td style="width: 10%;">
+                        <span style="text-orientation: upright; writing-mode: vertical-lr; padding:5px">{{ 'cv.remark' | translate}}</span>
+                    </td>
+                    <td style="text-align: center;" colspan="2"><span> &nbsp;</span></td> 
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+ 
+
+
+
+</div>

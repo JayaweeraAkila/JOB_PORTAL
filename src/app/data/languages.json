@@ -1,0 +1,12 @@
+[
+    {
+        "lang": "en",
+        "display": "English",
+        "flag": "https://restcountries.eu/data/gbr.svg"
+    },
+    {
+        "lang": "ja",
+        "display": "Japanese",
+        "flag": "https://restcountries.eu/data/jpn.svg"
+    }
+]

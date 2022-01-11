@@ -1,0 +1,532 @@
+<div *ngIf="error" class="server-error">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-md-7 text-center card p-4 mt-4 alert alert-danger">
+      <div class="h5">Invalid profile</div>
+     
+    </div>
+  </div>
+  
+  <div class="row mt-4 pt-1 d-flex justify-content-center align-items-center">
+    <div class="col-md-12 text-center ">
+      <button mat-raised-button (click)="gotoRegister()">{{ 'profile.registerMySelf' | translate}}</button>
+    </div>
+  </div>
+
+  <div class="row mt-4 pt-1 d-flex justify-content-center align-items-center">
+    <div class="col-md-7">
+      <p class="text-center h6">
+          <span> {{ 'profile.joinLine' | translate }}</span>
+      </p>
+    </div>
+    <div class="col-md-7 d-flex justify-content-center align-items-center">
+      <img width="150px" src="assets/img/yoyo-line-qr.jpg" alt="">
+    </div>
+  </div>
+  
+</div>
+
+<div  *ngIf="isCompleted && !error && !isCompletedNow" class="already-registered">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-md-7 text-center card p-4 mt-4 alert alert-warning">
+      <div class="h5">
+        <br><br>
+          {{ 'profile.alreadyExists' | translate}}
+        <br>
+      </div>
+      <p class="h4"> {{ 'profile.thankyou' | translate}}</p>
+      <br>
+      <br>
+    </div>
+  </div>
+  <div class="row mt-4 pt-1 d-flex justify-content-center align-items-center">
+    <div class="col-md-7">
+      <p class="text-center h6">
+          <span> {{ 'profile.joinLine' | translate }}</span>
+      </p>
+    </div>
+    <div class="col-md-7 d-flex justify-content-center align-items-center">
+      <img width="150px" src="assets/img/yoyo-line-qr.jpg" alt="">
+    </div>
+  </div>
+</div>
+
+<div  *ngIf="isCompleted && !error && isCompletedNow" class="already-registered">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-md-7 text-center card p-4 mt-4 alert alert-info">
+      <div class="h5">
+        <br><br>
+        {{ 'profile.msgSuccess' | translate}}
+        <br>
+      </div>
+      <p class="h4"> {{ 'profile.thankyou' | translate}}</p>
+      <br>
+      <br>
+    </div>
+  </div>
+  <div class="row mt-4 pt-1 d-flex justify-content-center align-items-center">
+    <div class="col-md-7">
+      <p class="text-center h6">
+          <span> {{ 'profile.joinLine' | translate }}</span>
+      </p>
+    </div>
+    <div class="col-md-7 d-flex justify-content-center align-items-center">
+      <img width="150px" src="assets/img/yoyo-line-qr.jpg" alt="">
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!isCompleted && !error" class="profile">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-md-7 application-form mt-4">
+      <div *ngIf="!isNew" class="page-hader pt-4">
+        <h1>{{ 'profile.title' | translate}}</h1>
+      </div>
+
+      <mat-vertical-stepper [linear]="true">
+
+        <mat-step>
+          
+          <ng-template matStepLabel class="ml-2">{{'profile.profilePictureSelect' | translate}}</ng-template>
+
+            <div class="row d-flex justify-content-center align-items-center">
+              <div class="col-md-4 d-flex justify-content-center align-items-center">
+                
+                <img width="75%" [src]="profilePicture" alt=""> 
+              </div>
+               
+            </div>
+            <div class="row d-flex justify-content-center align-items-center mt-2">
+
+              <div class="col-md-4 d-flex justify-content-center align-items-center">
+                <input type="file" class="upload-button"
+                 
+                (change)="uploadProfilePic($event.target.files)">
+ 
+              </div>
+             
+            </div>
+
+
+
+
+
+          <div class="row">
+            <div class="col-md-12 mt-4 mb-4">
+              <button mat-raised-button matStepperNext class="float-right px-34">{{ 'profile.next' | translate}}</button>
+            </div>
+          </div>
+
+        </mat-step>
+        
+
+
+
+
+        <mat-step [stepControl]="fgPersonalInfo">
+          <form [formGroup]="fgPersonalInfo">
+            <ng-template matStepLabel class="ml-2">{{ 'profile.personalInfo' | translate}}</ng-template>
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field class="w-100">
+                  <mat-label>{{ 'register.email' | translate}}</mat-label>
+                  <input matInput placeholder="{{ 'register.email' | translate}}" formControlName="fcEmail" required>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field class="w-100">
+                  <mat-label>{{ 'register.fullName' | translate}}</mat-label>
+                  <input matInput placeholder="{{ 'register.fullName' | translate}}" formControlName="fcFristName" required>
+                </mat-form-field>
+              </div>
+               
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field class="w-100">
+                  <mat-label>{{ 'profile.fullNameJp' | translate}}</mat-label>
+                  <input matInput placeholder="{{ 'profile.fullNameJp' | translate}}" formControlName="fcJpFristName">
+                </mat-form-field>
+              </div>
+               
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field class="w-100">
+                  <mat-label>{{ 'profile.addressEn' | translate}}</mat-label>
+                  <input matInput placeholder="{{ 'profile.addressEn' | translate}}" formControlName="fcAddressEN" required>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field class="w-100">
+                  <mat-label>{{ 'profile.addressJp' | translate}}</mat-label>
+                  <input matInput placeholder="{{ 'profile.addressJp' | translate}}" formControlName="fcAddressJP" required>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field class="w-100">
+                  <mat-label>{{ 'profile.nationality' | translate}}</mat-label>
+                  <mat-select placeholder="{{ 'profile.nationality' | translate}}" formControlName="fcNationality">
+                    <mat-option *ngFor="let country of countries" [value]="country">
+                      <img [src]="country?.flag" width="24px" class="mr-1">
+                      {{country?.demonym}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="w-100">
+                  <mat-label>{{ 'profile.currentCountry' | translate}}</mat-label>
+                  <mat-select placeholder="{{ 'profile.currentCountry' | translate}}" formControlName="fcCountry">
+                    <mat-option *ngFor="let country of countries" [value]="country">
+                      <img [src]="country?.flag" width="24px" class="mr-1">
+                      {{country?.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2">
+                <mat-form-field class="w-100">
+                  <mat-label>{{ 'profile.countryCode' | translate}}</mat-label>
+                  <mat-select placeholder="{{ 'profile.countryCode' | translate}}" formControlName="fcCountryCode">
+                    <mat-option *ngFor="let country of countries" [value]="country">
+                      <img [src]="country?.flag" width="24px" class="mr-1">
+                      {{country?.callingCodes[0]}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-10">
+                <mat-form-field class="w-100">
+                  <mat-label>{{ 'profile.contact' | translate}}</mat-label>
+                  <input matInput placeholder="{{ 'profile.contact' | translate}}" formControlName="fcContact" required>
+                </mat-form-field>
+              </div>
+            </div>
+           
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field class="w-100">
+                  <mat-label>{{ 'profile.dob' | translate}}</mat-label>
+                  <input matInput [matDatepicker]="dobPicker" formControlName="fcDob">
+                  <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+                  <mat-datepicker #dobPicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="w-100">
+                  <mat-select placeholder="{{ 'profile.gender' | translate}}" formControlName="fcGender">
+                    <mat-option value="male">Male</mat-option>
+                    <mat-option value="female">Female</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field hidden class="w-100">
+                  <mat-select placeholder="{{ 'profile.bloodGroup' | translate}}" formControlName="fcBloodGroup">
+                    <mat-option>None</mat-option>
+                    <mat-option value="A+">A+</mat-option>
+                    <mat-option value="A-">A-</mat-option>
+                    <mat-option value="B+">B+</mat-option>
+                    <mat-option value="B-">B-</mat-option>
+                    <mat-option value="AB+">AB+</mat-option>
+                    <mat-option value="AB-">AB-</mat-option>
+                    <mat-option value="O+">O+</mat-option>
+                    <mat-option value="O-">O-</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 mt-4 mb-4">
+                <button mat-raised-button matStepperNext class="float-right px-34">{{ 'profile.next' | translate}}</button>
+              </div>
+            </div>
+          </form>
+        </mat-step>
+
+
+        <mat-step [stepControl]="fgEducation">
+          <ng-template matStepLabel class="ml-2">{{ 'profile.educationInformation' | translate}}</ng-template>
+
+          <form [formGroup]="fgEducation">
+            <mat-accordion class="mt-2" formArrayName="fgEducationCourses">
+              <mat-expansion-panel
+                *ngFor="let form of fgEducation.get('fgEducationCourses')['controls']; let i = index; "
+                [expanded]="fgEducation.get('fgEducationCourses')['controls'].length === ( i + 1 )">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    {{ fgEducation.controls.fgEducationCourses['controls'][i].controls.fcInstitute.value }}
+                  </mat-panel-title>
+                  <mat-panel-description>
+
+                  </mat-panel-description>
+                  <button mat-button *ngIf="i > 0" (click)="removeEducation(i)"> <i class="fa fa-trash"
+                      aria-hidden="true"></i></button>
+                </mat-expansion-panel-header>
+
+                <div class="row" [formGroupName]="i">
+                  <div class="col-md-12">
+                    <mat-form-field class="w-100">
+                      <mat-label>{{ 'profile.institute' | translate}}</mat-label>
+                      <input matInput placeholder="{{ 'profile.institute' | translate}}" formControlName="fcInstitute" required>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-form-field class="w-100">
+                      <mat-label>{{ 'profile.course' | translate}}</mat-label>
+                      <input matInput placeholder="{{ 'profile.course' | translate}}" formControlName="fcCourseName" required>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-form-field class="w-100">
+                      <mat-label>{{ 'profile.areaOfStudy' | translate}}</mat-label>
+                      <input matInput placeholder="{{ 'profile.areaOfStudy' | translate}}" formControlName="fcAreaOfStudy" required>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-6">
+                    <mat-form-field class="w-100">
+                      <mat-label>{{ 'profile.startDate' | translate}}</mat-label>
+                      <input matInput [matDatepicker]="edStartDatePicker" formControlName="fcStartDate">
+                      <mat-datepicker-toggle matSuffix [for]="edStartDatePicker"></mat-datepicker-toggle>
+                      <mat-datepicker #edStartDatePicker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="w-100">
+                      <mat-label>{{ 'profile.graduationDate' | translate}}</mat-label>
+                      <input matInput [matDatepicker]="edgraduationDatePicker" formControlName="fcGraduationDate">
+                      <mat-datepicker-toggle matSuffix [for]="edgraduationDatePicker"></mat-datepicker-toggle>
+                      <mat-datepicker #edgraduationDatePicker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="w-100">
+                      <mat-label>{{ 'profile.grade' | translate}}Grade</mat-label>
+                      <input matInput placeholder="{{ 'profile.grade' | translate}}" formControlName="fcGrade" required>
+                    </mat-form-field>
+                  </div>
+                  
+                </div>
+
+              </mat-expansion-panel>
+
+            </mat-accordion>
+
+          </form>
+
+          <div class="row">
+            <div class="col-md-12 mt-4 mb-4">
+              <a mat-button target="_blank" (click)="addNewEducation()" class="float-left pointer">{{'profile.addMoreEducation' | translate}}</a>
+              <button mat-raised-button matStepperNext class="float-right px-34">{{'profile.next' | translate}}</button>
+            </div>
+          </div>
+
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel class="ml-2">{{'profile.wordexperienceinforamation' | translate}}</ng-template>
+
+          <form [formGroup]="fgWork">
+            <mat-accordion class="mt-2" formArrayName="faWorExperience">
+              <mat-expansion-panel *ngFor="let form of fgWork.get('faWorExperience')['controls']; let i = index; "
+                [expanded]="fgWork.get('faWorExperience')['controls'].length === ( i + 1 )">
+
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+
+                    <span *ngIf="i === 0; else preemp">{{'profile.currentEmpolyment' | translate}}</span>
+                    <ng-template #preemp>{{'profile.previousEmpolyment' | translate}} {{i}}</ng-template>
+
+
+                    <!-- {{ fgWork.controls.faWorExperience['controls'][i].controls.fcInstitute.value }} -->
+                  </mat-panel-title>
+                  <mat-panel-description>
+
+                  </mat-panel-description>
+                  <button mat-button *ngIf="i > 0 " (click)="removeWorkExperience(i)"> <i class="fa fa-trash"
+                      aria-hidden="true"></i></button>
+                  <button mat-button *ngIf="i == 0 " (click)="removeAllWorkExperience()">{{'profile.noexperience' | translate}}</button>
+                </mat-expansion-panel-header>
+
+                <div class="row" [formGroupName]="i">
+                  <div class="col-md-12">
+                    <mat-form-field class="w-100">
+                      <mat-label>{{'profile.company' | translate}}</mat-label>
+                      <input matInput placeholder="{{'profile.company' | translate}}" formControlName="fcCompany" required>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-form-field class="w-100">
+                      <mat-label>{{'profile.designation' | translate}}</mat-label>
+                      <input matInput placeholder="{{'profile.designation' | translate}}" formControlName="fcDesignation" required>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="w-100">
+                      <mat-label>{{ 'profile.startDate' | translate}}</mat-label>
+                      <input matInput [matDatepicker]="exStartDatePicker" formControlName="fcStartDate">
+                      <mat-datepicker-toggle matSuffix [for]="exStartDatePicker"></mat-datepicker-toggle>
+                      <mat-datepicker #exStartDatePicker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  
+
+                  <div
+                    *ngIf="i === 0 && fgWork.controls.faWorExperience['controls'][i].controls.fcIsCurrent.value ; else  endSection">
+                    <div class="col-md-6 pt-3">
+                      <mat-checkbox formControlName="fcIsCurrent" [checked]>{{'profile.present' | translate}}</mat-checkbox>
+                    </div>
+                  </div>
+                  <ng-template #endSection>
+                    <div class="col-md-6">
+                      <mat-form-field class="w-100">
+                        <mat-label>{{ 'profile.endDate' | translate}}</mat-label>
+                        <input matInput [matDatepicker]="exEndDatePicker" formControlName="fcEndDate">
+                        <mat-datepicker-toggle matSuffix [for]="exEndDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #exEndDatePicker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </ng-template>
+
+                  <div class="col-md-12">
+                    <mat-form-field class="w-100">
+                      <mat-label>{{'profile.description' | translate}}</mat-label>
+                      <textarea matInput placeholder="{{'profile.description' | translate}}" formControlName="fcDescription" required></textarea>
+                    </mat-form-field>
+                  </div>
+
+
+                </div>
+
+              </mat-expansion-panel>
+            </mat-accordion>
+
+
+
+          </form>
+
+          <div class="row">
+            <div class="col-md-12 mt-4 mb-4">
+              <a mat-button target="_blank" (click)="addNewWorkExperience()" class="float-left pointer">Add
+                Empoyment</a>
+              <button mat-raised-button matStepperNext class="float-right px-34">Next</button>
+            </div>
+          </div>
+
+
+        </mat-step>
+
+        <mat-step [stepControl]="fgOtherSkills">
+          <ng-template matStepLabel class="ml-2">{{'profile.otherSkills' | translate}}</ng-template>
+
+          <form [formGroup]="fgOtherSkills">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field>
+                  <mat-select placeholder="{{'profile.jlpttest' | translate}}" formControlName="fcJlptLevel">
+                    <mat-option value="N5">N5</mat-option>
+                    <mat-option value="N4">N4</mat-option>
+                    <mat-option value="N3">N3</mat-option>
+                    <mat-option value="N2">N2</mat-option>
+                    <mat-option value="N1">N1</mat-option>
+                    <mat-option value="NA">N/A</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              
+
+              <div class="col-md-12">
+                <mat-form-field class="w-100">
+                  <mat-label>{{'profile.passedSkillTests' | translate}}</mat-label>
+                  <mat-select multiple formControlName="fcSkillTests">
+                    <mat-option *ngFor="let item of skillTests" [value]="item">{{item.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-12">
+
+                <mat-form-field class="w-100">
+                  <mat-chip-list #skillChipList aria-label="" formControlName="fcOtherSkills">
+                    <mat-chip *ngFor="let skill of otherSkills" [removable]="true" (removed)="removeOtherSkill(skill)">
+                      {{skill}}
+                      <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="{{'profile.addotherSkills' | translate}}" [matChipInputFor]="skillChipList"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
+                      (matChipInputTokenEnd)="addOtherSkill($event)">
+                  </mat-chip-list>
+                </mat-form-field>
+
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-md-12 mt-4 mb-4">
+                <button mat-raised-button matStepperNext class="float-right px-34">{{ 'profile.next' | translate}}</button>
+              </div>
+            </div>
+
+          </form>
+
+
+        </mat-step>
+
+
+        <mat-step [stepControl]="fgWorkAuthrizationInfo">
+          <ng-template matStepLabel class="ml-2">{{ 'profile.workAuthorizationInfo' | translate}}</ng-template>
+          <form [formGroup]="fgWorkAuthrizationInfo">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field class="w-100">
+                  <mat-label>{{ 'profile.passportNo' | translate}}</mat-label>
+                  <input matInput placeholder="{{ 'profile.passportNo' | translate}}" formControlName="fcPassportNo">
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="w-100">
+                  <mat-label>{{ 'profile.alientCardNo' | translate}}</mat-label>
+                  <input matInput placeholder="{{ 'profile.alientCardNo' | translate}}" formControlName="fcAlienNo">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 pt-3">
+                <mat-checkbox formControlName="fcWorkAuthorization">{{'profile.workAuthorization' | translate}}</mat-checkbox>
+              </div>
+              <div class="col-md-6" *ngIf="fgWorkAuthrizationInfo.controls.fcWorkAuthorization.value">
+                <mat-form-field class="w-100">
+                  <mat-label>{{ 'profile.visaenddate' | translate}}</mat-label>
+                  <input matInput [matDatepicker]="visaExipationPicker" formControlName="fcVisaEndDate">
+                  <mat-datepicker-toggle matSuffix [for]="visaExipationPicker"></mat-datepicker-toggle>
+                  <mat-datepicker #visaExipationPicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 mt-4 mb-4">
+                <button mat-raised-button (click)="saveProfile()" class="float-right px-34">{{'profile.save' | translate}}</button>
+              </div>
+            </div>
+          </form>
+        </mat-step>
+
+
+      </mat-vertical-stepper>
+
+
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,22 @@
+<div class="header">
+    <div class="top-bar d-flex p-1 justify-content-between">
+        <img class="logo" src="assets/img/yoyo-logo.jpg" alt="">
+        <div>
+            <mat-form-field>
+                <mat-select [(ngModel)]="selectedLang" (selectionChange)="changeLanguage($event)">
+                  <mat-option *ngFor="let lang of langList" [value]="lang">
+                    <img [src]="lang?.flag" width="24px" class="mr-1">
+                    {{lang?.display}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            <a [routerLink]="['/login']" routerLinkActive="router-link-active" ><span class="btn"><i class="fa fa-user pr-2"></i>sign in</span></a>
+        </div>
+    </div>
+   <div class="banner">
+    <img class="w-100" src="assets/img/banner1.png" alt="">
+   </div>
+</div>
+
+<!-- give credit to author in a page -->
+<a hidden href="https://www.freepik.com/free-photos-vectors/character">Character vector created by macrovector - www.freepik.com</a>

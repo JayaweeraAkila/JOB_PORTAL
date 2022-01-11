@@ -1,0 +1,77 @@
+<div class="card">
+    <div class="card-header">
+        <h3>Filter Candidates</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="row my-4">
+                    <div class="col-md-4">
+                        JLPT/NAT Test :
+                    </div>
+                    <div class="col-md-8">
+                        <mat-select placeholder="Select JLPT test level" [(ngModel)]="data.japanese">
+                            <mat-option value="N5">N5</mat-option>
+                            <mat-option value="N4">N4</mat-option>
+                            <mat-option value="N3">N3</mat-option>
+                            <mat-option value="N2">N2</mat-option>
+                            <mat-option value="N1">N1</mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-md-4">
+                        Passed Tests :
+                    </div>
+                    <div class="col-md-8">
+                        <mat-select placeholder="Select Skill test" [(ngModel)]="data.skillsPassed">
+                            <mat-option place *ngFor="let item of skillTests" [value]="item">{{item.name}}</mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+
+
+                <div class="row my-4">
+                    <div class="col-md-4">
+                        Nationality :
+                    </div>
+
+                    <div class="col-md-8">
+                        <mat-select placeholder="Select Nationality" [(ngModel)]="data.nationality">
+                            <mat-option *ngFor="let item of countries" [value]="item">
+                                <img [src]="item?.flag" width="24px" class="mr-1">
+                                {{item?.demonym}}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-md-4">
+                        Current Contry :
+                    </div>
+                    <div class="col-md-8">
+                        <mat-select placeholder="Select Current Country" [(ngModel)]="data.currCountry">
+                            <mat-option *ngFor="let item of countries" [value]="item">
+                                <img [src]="item?.flag" width="24px" class="mr-1">
+                                {{item?.name}}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+                
+
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button mat-button (click)="onClickFilter()">Filter</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
